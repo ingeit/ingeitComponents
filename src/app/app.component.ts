@@ -9,19 +9,24 @@ import { IngeitFormComponent } from '../components/ingeit/dynamicForm/dynamicFor
 export class AppComponent {
   title = 'app';
   forms: any;
-
   constructor() {
     this.forms = [
       [{
-        name: 'Email',
-        type: 'email'
+        name: 'email',
+        type: 'email',
+        value: null,
+        required: true,
       }, {
-        name: 'Password',
-        type: 'password'
+        name: 'password',
+        type: 'password',
+        value: null,
+        required: true,
       }],
       [{
-        name: 'Nombre',
-        type: 'input'
+        name: 'nombre',
+        type: 'input',
+        value: null,
+        required: false,
       }]
     ];
   }
