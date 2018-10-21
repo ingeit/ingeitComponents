@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-ingeit-form',
-  templateUrl: './ingeit-form.component.html',
-  styleUrls: ['./ingeit-form.component.css']
+  selector: 'app-ingeit-dynamic-form',
+  templateUrl: './dynamicForm.component.html',
+  styleUrls: ['./dynamicForm.component.css']
 })
 export class IngeitFormComponent implements OnInit {
   formBuilder: any;

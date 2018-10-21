@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IngeitFormComponent } from './ingeit-form/ingeit-form.component';
+import { IngeitFormComponent } from '../components/ingeit/dynamicForm/dynamicForm.component';
 
 @Component({
   selector: 'app-root',
