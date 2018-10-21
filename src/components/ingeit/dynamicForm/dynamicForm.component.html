@@ -1,11 +1,18 @@
 <form [formGroup]="formGroup" style="padding:50px;">
   <div class="form-row" *ngFor="let rows of formViewBuilder">
-    <div class="form-group col" *ngFor="let col of rows">
-      <label for="{{col.name}}">{{col.name | titlecase}}</label>
-      <input type="{{col.type}}" formControlName="{{col.name}}" id="{{col.name}}" placeholder="{{col.name | titlecase}}"  class="form-control" >
-      <small id="{{col.name}}HelpBlock" class="form-text text-muted">
-        Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
-      </small>
+    <div class="form-group" 
+      [ngClass]="setWidth(col)"
+      *ngFor="let col of rows">
+        <label for="{{col.name}}">{{col.name | titlecase}}</label>
+        <input type="{{col.type}}" 
+          formControlName="{{col.name}}"
+          [required]="col.required"
+          id="{{col.name}}" 
+          placeholder="{{col.name | titlecase}}"  
+          class="form-control">
+        <small id="{{col.name}}HelpBlock" class="form-text text-muted">
+          Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+        </small>
     </div>
   </div>
 </form>

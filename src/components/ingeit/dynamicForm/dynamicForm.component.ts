@@ -19,9 +19,15 @@ export class IngeitFormComponent implements OnInit {
     this.metaData
       .flatMap(row => row)
       .map(col => {
-        this.formItems[col.nombre] = col.required ? new FormControl(col.value || '', Validators.required)
-        : new FormControl(col.value || '');
+        this.formItems[col.name] = col.required ? new FormControl(col.value || '', Validators.required)
+          : new FormControl(col.value || '');
       })
-      .map( () => this.formGroup = new FormGroup(this.formItems));
+      .map(() => this.formGroup = new FormGroup(this.formItems));
+  }
+
+  setWidth(col) {
+    let className = 'col';
+    if (col.width) className = className + '-' + col.width;
+    return className;
   }
 }

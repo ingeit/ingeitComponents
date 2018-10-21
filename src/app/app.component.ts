@@ -27,6 +27,18 @@ export class AppComponent {
         type: 'input',
         value: null,
         required: false,
+      }],
+      [{
+        name: 'ciudad',
+        type: 'input',
+        value: null,
+        width: 8,
+        required: false,
+      }, {
+        name: 'zip',
+        type: 'input',
+        value: null,
+        required: false,
       }]
     ];
   }
