@@ -1,0 +1,8 @@
+<form style="padding:50px;">
+  <div class="form-row" *ngFor="let rows of formBuilder">
+    <div class="form-group col" *ngFor="let col of rows">
+      <label for="{{col.name}}">{{col.name}}</label>
+      <input type="{{col.type}}" class="form-control" id="{{col.name}}" placeholder="{{col.name}}">
+    </div>
+  </div>
+</form>
