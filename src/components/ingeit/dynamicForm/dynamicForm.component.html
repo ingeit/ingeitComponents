@@ -1,22 +1,17 @@
 <form [formGroup]="formGroup" style="padding:50px;">
   <div class="form-row" *ngFor="let rows of formViewBuilder">
-    <div class="form-group" 
-      [ngClass]="setWidth(col)"
-      *ngFor="let col of rows">
-        <label for="{{col.name}}">{{col.name | titlecase}}</label>
-        <input type="{{col.type}}" 
-          formControlName="{{col.name}}"
-          [required]="col.required"
-          id="{{col.name}}" 
-          placeholder="{{col.name | titlecase}}"
-          [class.is-invalid]="isValid(col.name)"
-          class="form-control">
-        <small *ngIf="col.description" id="{{col.name}}HelpBlock" class="form-text text-muted">
-          {{col.description}}
-        </small>
-        <div class="invalid-feedback">
-          Please choose a {{col.name}}.
-        </div>
-    </div>
+    <nz-form-item [ngClass]="setWidth(col)" *ngFor="let col of rows">
+      <nz-form-label [nzRequired]="col.required" nzFor="{{col.name}}">{{col.name | titlecase}}</nz-form-label>
+      <nz-form-control>
+        <input 
+        type="{{col.type}}" 
+        nz-input 
+        formControlName="{{col.name}}" 
+        [required]="col.required" 
+        id="{{col.name}}"
+        placeholder="{{col.name | titlecase}}">
+        <nz-form-explain *ngIf="isValid(col.name)">The input is not valid E-mail!</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
   </div>
 </form>

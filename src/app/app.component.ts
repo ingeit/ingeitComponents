@@ -26,8 +26,7 @@ export class AppComponent {
       }, {
         name: 'password',
         type: 'password',
-        required: true,
-        description: 'Your password must be 8-20 characters long.'
+        required: true
       }],
       [{
         name: 'nombre',
