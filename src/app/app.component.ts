@@ -9,36 +9,38 @@ import { IngeitFormComponent } from '../components/ingeit/dynamicForm/dynamicFor
 export class AppComponent {
   title = 'app';
   forms: any;
+
+  // name,
+  // type,
+  // width?,
+  // required?,
+  // value?
+  // description?
+
   constructor() {
     this.forms = [
       [{
         name: 'email',
         type: 'email',
-        value: null,
         required: true,
       }, {
         name: 'password',
         type: 'password',
-        value: null,
         required: true,
+        description: 'Your password must be 8-20 characters long.'
       }],
       [{
         name: 'nombre',
         type: 'input',
-        value: null,
-        required: false,
+        required: true,
       }],
       [{
         name: 'ciudad',
         type: 'input',
-        value: null,
         width: 8,
-        required: false,
       }, {
         name: 'zip',
         type: 'input',
-        value: null,
-        required: false,
       }]
     ];
   }

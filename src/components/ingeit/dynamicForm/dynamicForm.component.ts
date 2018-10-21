@@ -30,4 +30,8 @@ export class IngeitFormComponent implements OnInit {
     if (col.width) className = className + '-' + col.width;
     return className;
   }
+
+  isValid(colName){
+    return this.formGroup.get(colName).dirty && this.formGroup.get(colName).errors;
+  }
 }
