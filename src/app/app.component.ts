@@ -38,8 +38,8 @@ export class AppComponent {
         type: 'input',
         width: 8,
       }, {
-        name: 'zip',
-        type: 'input',
+        name: 'date',
+        type: 'date',
       }]
     ];
   }

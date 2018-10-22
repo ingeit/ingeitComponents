@@ -2,16 +2,24 @@
   <div class="form-row" *ngFor="let rows of formViewBuilder">
     <nz-form-item [ngClass]="setWidth(col)" *ngFor="let col of rows">
       <nz-form-label [nzRequired]="col.required" nzFor="{{col.name}}">{{col.name | titlecase}}</nz-form-label>
-      <nz-form-control>
+      <nz-form-control [ngSwitch]="col.type">
+
         <input 
-        type="{{col.type}}" 
+        type="{{col.type}}"
+        *ngSwitchCase="['input', 'email', 'password'].includes(col.type) ? col.type : ''"
         nz-input 
         formControlName="{{col.name}}" 
         [required]="col.required" 
         id="{{col.name}}"
         placeholder="{{col.name | titlecase}}">
-        <nz-form-explain *ngIf="isValid(col.name)">The input is not valid E-mail!</nz-form-explain>
+
+        <nz-date-picker 
+          *ngSwitchCase="'date'"
+          formControlName="{{col.name}}">
+        </nz-date-picker>
+
+        <nz-form-explain *ngIf="isValid(col.name)">{{col.name | titlecase}} es un campo requerido</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
   </div>
-</form>
+</form> 
