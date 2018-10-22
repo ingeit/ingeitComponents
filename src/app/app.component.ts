@@ -11,11 +11,11 @@ export class AppComponent {
   forms: any;
 
   // name,
-  // type,
+  // type {email,password,input,date,rangedate,textarea},
   // width?,
   // required?,
   // value?
-  // description?
+  // tooltip?
 
   constructor() {
     this.forms = [
@@ -26,6 +26,7 @@ export class AppComponent {
       }, {
         name: 'password',
         type: 'password',
+        tooltip: 'Tiene que tener 8 digitos',
         required: true
       }],
       [{
@@ -40,7 +41,17 @@ export class AppComponent {
       }, {
         name: 'date',
         type: 'date',
-      }]
+      }],
+      [{
+        name: 'range date',
+        type: 'rangedate',
+        required: true,
+      },
+      {
+        name: 'text area',
+        type: 'textarea',
+        required: true,
+      }],
     ];
   }
 }

@@ -1,7 +1,14 @@
 <form [formGroup]="formGroup" style="padding:50px;">
   <div class="form-row" *ngFor="let rows of formViewBuilder">
     <nz-form-item [ngClass]="setWidth(col)" *ngFor="let col of rows">
-      <nz-form-label [nzRequired]="col.required" nzFor="{{col.name}}">{{col.name | titlecase}}</nz-form-label>
+      <nz-form-label [nzRequired]="col.required" nzFor="{{col.name}}">
+        <span>
+          {{col.name | titlecase}}
+          <nz-tooltip  *ngIf="col.tooltip" nzTitle="{{col.tooltip}}">
+            <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+          </nz-tooltip>
+        </span>
+      </nz-form-label>
       <nz-form-control [ngSwitch]="col.type">
 
         <input 
@@ -17,6 +24,18 @@
           *ngSwitchCase="'date'"
           formControlName="{{col.name}}">
         </nz-date-picker>
+
+        <nz-range-picker
+          *ngSwitchCase="'rangedate'"
+          formControlName="{{col.name}}">
+        </nz-range-picker>
+
+        <textarea 
+          *ngSwitchCase="'textarea'"
+          formControlName="{{col.name}}" 
+          nz-input 
+          placeholder="{{col.name | titlecase}}">
+        </textarea>
 
         <nz-form-explain *ngIf="isValid(col.name)">{{col.name | titlecase}} es un campo requerido</nz-form-explain>
       </nz-form-control>
