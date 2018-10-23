@@ -13,6 +13,9 @@ export class IngeitFormComponent implements OnInit {
   dataForFields: any = {};
 
   @Input() metaData: any;
+  @Input() clearForm: boolean = false;
+  @Input() submitText: string = 'Enviar';
+
   constructor(public service: DynamicService) { }
 
   ngOnInit() {
@@ -25,6 +28,17 @@ export class IngeitFormComponent implements OnInit {
         col.dataFromServer && this.getDataForField(col)
       })
       .map(() => this.formGroup = new FormGroup(this.formItems))
+  }
+
+  submitForm(): void {
+    for (const i in this.formGroup.controls) {
+      this.formGroup.controls[ i ].markAsDirty();
+      this.formGroup.controls[ i ].updateValueAndValidity();
+    }
+  }
+
+  resetForm(): void {
+    this.formGroup.reset();
   }
 
   setWidth(col) {
