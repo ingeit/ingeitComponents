@@ -43,4 +43,8 @@ export class IngeitFormComponent implements OnInit {
       console.log(this.dataForFields)
     })
   }
+
+  onInput(val){
+    console.log(val);
+  }
 }

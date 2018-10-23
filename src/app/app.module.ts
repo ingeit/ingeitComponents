@@ -9,7 +9,7 @@ import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { IngeitFormComponent } from '../components/ingeit/dynamicForm/dynamicForm.component';
-import { DynamicService } '../components/ingeit/dynamicForm/dynamic.service';
+import { DynamicService } from '../components/ingeit/dynamicForm/dynamic.service';
 
 registerLocaleData(en);
 

@@ -11,25 +11,38 @@
       </nz-form-label>
       <nz-form-control [ngSwitch]="col.type">
 
+        <!-- input variable-->
         <input 
         type="{{col.type}}"
-        *ngSwitchCase="['input', 'email', 'password'].includes(col.type) ? col.type : ''"
+        *ngSwitchCase="['input', 'email', 'password', 'autocomplete'].includes(col.type) ? col.type : ''"
         nz-input 
+        (input)="col.type === 'autocomplete' && onInput($event.target?.value)"
+        [nzAutocomplete]="col.type === 'autocomplete' && auto"
         formControlName="{{col.name}}" 
         [required]="col.required" 
         id="{{col.name}}"
         placeholder="{{col.name | titlecase}}">
+        
+        <!-- For autocomplete field if type = 'autocomplete' -->
+        <nz-autocomplete nzBackfill #auto>
+        <nz-auto-option *ngFor="let option of dataForFields[col.name]" [nzValue]="option[col.dataFromServer.value]">
+          {{option[col.dataFromServer.value]}}
+        </nz-auto-option>
+        </nz-autocomplete>
 
+        <!-- date field -->
         <nz-date-picker 
           *ngSwitchCase="'date'"
           formControlName="{{col.name}}">
         </nz-date-picker>
 
+        <!-- range date -->
         <nz-range-picker
           *ngSwitchCase="'rangedate'"
           formControlName="{{col.name}}">
         </nz-range-picker>
 
+        <!-- text area-->
         <textarea 
           *ngSwitchCase="'textarea'"
           formControlName="{{col.name}}" 
@@ -37,14 +50,16 @@
           placeholder="{{col.name | titlecase}}">
         </textarea>
 
+        <!-- select field -->
         <nz-select 
           *ngSwitchCase="'select'"
           formControlName="{{col.name}}" 
           nzPlaceHolder="{{col.name | titlecase}}"
           nzAllowClear>
-          <nz-option *ngFor="let o of dataForFields[col.name]" nzValue="{{o[col.dataFromServer.value]}}" nzLabel="{{o[col.dataFromServer.label]}}"></nz-option>
+          <nz-option *ngFor="let o of dataForFields[col.name]" nzValue="{{o[col.dataFromServer.key]}}" nzLabel="{{o[col.dataFromServer.value]}}"></nz-option>
         </nz-select>
 
+        <!-- error message-->
         <nz-form-explain *ngIf="isValid(col.name)">{{col.name | titlecase}} es un campo requerido</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
