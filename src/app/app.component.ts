@@ -11,7 +11,7 @@ export class AppComponent {
   forms: any;
 
   // name,
-  // type {email,password,input,date,rangedate,textarea},
+  // type {email,password,input,date,rangedate,textarea,select},
   // width?,
   // required?,
   // value?
@@ -48,9 +48,14 @@ export class AppComponent {
         required: true,
       },
       {
-        name: 'text area',
-        type: 'textarea',
+        name: 'select',
+        type: 'select',
         required: true,
+        dataFromServer:{
+          url: 'https://jsonplaceholder.typicode.com/users',
+          value: 'id',
+          label: 'name'
+        }
       }],
     ];
   }

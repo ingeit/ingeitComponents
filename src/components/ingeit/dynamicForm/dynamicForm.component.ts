@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { DynamicService } from './dynamic.service'
 @Component({
   selector: 'app-ingeit-dynamic-form',
   templateUrl: './dynamicForm.component.html',
@@ -10,9 +10,10 @@ export class IngeitFormComponent implements OnInit {
   formViewBuilder: any;
   formGroup: any;
   formItems: any = {};
+  dataForFields: any = {};
 
   @Input() metaData: any;
-  constructor() { }
+  constructor(public service: DynamicService) { }
 
   ngOnInit() {
     this.formViewBuilder = this.metaData;
@@ -21,8 +22,9 @@ export class IngeitFormComponent implements OnInit {
       .map(col => {
         this.formItems[col.name] = col.required ? new FormControl(col.value || '', Validators.required)
           : new FormControl(col.value || '');
+        col.dataFromServer && this.getDataForField(col)
       })
-      .map(() => this.formGroup = new FormGroup(this.formItems));
+      .map(() => this.formGroup = new FormGroup(this.formItems))
   }
 
   setWidth(col) {
@@ -31,7 +33,14 @@ export class IngeitFormComponent implements OnInit {
     return className;
   }
 
-  isValid(colName){
+  isValid(colName) {
     return this.formGroup.get(colName).dirty && this.formGroup.get(colName).errors;
+  }
+
+  getDataForField(field) {
+    this.service.getDataForField(field.dataFromServer.url).then( res => {
+      this.dataForFields[field.name] = res;
+      console.log(this.dataForFields)
+    })
   }
 }

@@ -37,6 +37,14 @@
           placeholder="{{col.name | titlecase}}">
         </textarea>
 
+        <nz-select 
+          *ngSwitchCase="'select'"
+          formControlName="{{col.name}}" 
+          nzPlaceHolder="{{col.name | titlecase}}"
+          nzAllowClear>
+          <nz-option *ngFor="let o of dataForFields[col.name]" nzValue="{{o[col.dataFromServer.value]}}" nzLabel="{{o[col.dataFromServer.label]}}"></nz-option>
+        </nz-select>
+
         <nz-form-explain *ngIf="isValid(col.name)">{{col.name | titlecase}} es un campo requerido</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
