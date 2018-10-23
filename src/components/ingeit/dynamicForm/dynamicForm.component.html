@@ -16,7 +16,7 @@
         type="{{col.type}}"
         *ngSwitchCase="['input', 'email', 'password', 'autocomplete'].includes(col.type) ? col.type : ''"
         nz-input 
-        (input)="col.type === 'autocomplete' && onInput($event.target?.value)"
+        (input)="col.type === 'autocomplete' && onInput($event.target?.value, col)"
         [nzAutocomplete]="col.type === 'autocomplete' && auto"
         formControlName="{{col.name}}" 
         [required]="col.required" 
@@ -25,7 +25,7 @@
         
         <!-- For autocomplete field if type = 'autocomplete' -->
         <nz-autocomplete nzBackfill #auto>
-        <nz-auto-option *ngFor="let option of dataForFields[col.name]" [nzValue]="option[col.dataFromServer.value]">
+        <nz-auto-option *ngFor="let option of dataForFields[col.name+'Search']" [nzValue]="option[col.dataFromServer.value]">
           {{option[col.dataFromServer.value]}}
         </nz-auto-option>
         </nz-autocomplete>

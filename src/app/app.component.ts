@@ -16,6 +16,13 @@ export class AppComponent {
   // required?,
   // value?
   // tooltip?
+  //
+  // this object is required if the field is autocomplete or option
+  // dataFromServer:{
+  //   url: 'https://jsonplaceholder.typicode.com/users',
+  //   key: 'id', // real value, that go to backend
+  //   value: 'name' //value to show in the view
+  // }
 
   constructor() {
     this.forms = [

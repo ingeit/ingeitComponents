@@ -39,12 +39,15 @@ export class IngeitFormComponent implements OnInit {
 
   getDataForField(field) {
     this.service.getDataForField(field.dataFromServer.url).then( res => {
+      let fieldNameSearch = field.name+'Search';
       this.dataForFields[field.name] = res;
-      console.log(this.dataForFields)
+      this.dataForFields[fieldNameSearch] = res;
     })
   }
 
-  onInput(val){
-    console.log(val);
+  onInput(value: string,field): void {
+    let fieldNameSearch = field.name+'Search';
+    this.dataForFields[fieldNameSearch] = this.dataForFields[field.name]
+      .filter(option => option[field.dataFromServer.value].toLowerCase().indexOf(value.toLowerCase()) === 0);
   }
 }
