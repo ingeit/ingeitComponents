@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, ValidatorFn } from '@angular/forms';
 import { DynamicService } from './dynamic.service'
 
 @Component({
@@ -30,11 +30,35 @@ export class IngeitFormComponent implements OnInit {
     this.metaData
       .flatMap(row => row)
       .map(col => {
-        this.formItems[col.name] = col.required ? new FormControl(col.value || '', Validators.required)
-          : new FormControl(col.value || '');
-        col.dataFromServer && this.getDataForField(col)
+        this.formItems[col.name] = new FormControl(col.value || '', this.addValidation(col));
+        col.dataFromServer && this.getDataForField(col);
       })
       .map(() => this.formGroup = new FormGroup(this.formItems))
+  }
+
+  addValidation(col): any[] {
+    let arrayValidators = [];
+    col.required && arrayValidators.push(Validators.required);
+    col.type === 'email' && arrayValidators.push(Validators.email);
+    col.type === 'autocomplete' && arrayValidators.push(this.autoCompleteValidation(col));
+    col.validations && col.validations.max && arrayValidators.push(Validators.max(col.validations.max));
+    col.validations && col.validations.min && arrayValidators.push(Validators.min(col.validations.min));
+    col.validations && col.validations.minLength && arrayValidators.push(Validators.minLength(col.validations.minLength));
+    col.validations && col.validations.maxLength && arrayValidators.push(Validators.maxLength(col.validations.maxLength));
+    col.validations && col.validations.pattern && arrayValidators.push(Validators.pattern(col.validations.pattern));
+    return arrayValidators;
+  }
+
+  autoCompleteValidation(field): ValidatorFn {
+    return (control: FormControl): { [key: string]: boolean } | null => {
+      if (control.value !== undefined && (isNaN(control.value))) {
+        let arrayToCheck = this.dataForFields[field.name].map( c => c[field.dataFromServer.value]);
+        if((arrayToCheck.indexOf(control.value) === -1)){
+          return { 'autocompleteError': true };
+        }
+      }
+      return null;
+    }
   }
 
   submitForm(): void {
@@ -43,9 +67,9 @@ export class IngeitFormComponent implements OnInit {
       this.formGroup.controls[i].updateValueAndValidity();
     }
     if (this.formGroup.valid) {
-      this.service.postSubmit(this.url,this.formGroup.value).then( res => {
+      this.service.postSubmit(this.url, this.formGroup.value).then(res => {
         this.formSuccess.emit(res);
-      }).catch( e => this.formError.emit(e));
+      }).catch(e => this.formError.emit(e));
     }
   }
 

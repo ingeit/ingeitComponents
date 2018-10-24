@@ -23,6 +23,13 @@ export class AppComponent {
   //   key: 'id', // real value, that go to backend
   //   value: 'name' //value to show in the view
   // }
+  // validations:{
+  //    min
+  //    max
+  //    minLength
+  //    maxLength
+  //    pattern
+  // }
 
   constructor() {
     this.forms = [
