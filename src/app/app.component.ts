@@ -31,13 +31,13 @@ export class AppComponent {
         type: 'email',
         required: true,
       }, {
-        name: 'password',
+        name: 'userId',
         type: 'password',
         tooltip: 'Tiene que tener 8 digitos',
         required: true
       }],
       [{
-        name: 'nombre',
+        name: 'title',
         type: 'autocomplete',
         required: true,
         dataFromServer:{
@@ -47,7 +47,7 @@ export class AppComponent {
         }
       }],
       [{
-        name: 'ciudad',
+        name: 'body',
         type: 'input',
         width: 8,
       }, {
@@ -55,7 +55,7 @@ export class AppComponent {
         type: 'date',
       }],
       [{
-        name: 'range date',
+        name: 'range_date',
         type: 'rangedate',
         required: true,
       },
@@ -71,4 +71,13 @@ export class AppComponent {
       }],
     ];
   }
+
+  formSuccess(res){
+    console.log(res)
+  }
+
+  formError(err){
+    console.log(err)
+  }
+
 }

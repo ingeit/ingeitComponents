@@ -8,7 +8,11 @@ export class DynamicService {
 
   constructor(public http: HttpClient) { }
 
-  getDataForField(url){
+  getDataForField(url) {
     return this.http.get(url).toPromise();
+  }
+
+  postSubmit(url, data) {
+    return this.http.post(url, data).toPromise();
   }
 }

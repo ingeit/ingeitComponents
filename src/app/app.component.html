@@ -2,4 +2,7 @@
   [metaData]="forms"
   [clearForm]="true"
   [submitText]="'Crear'"
+  [url]="'https://jsonplaceholder.typicode.com/posts'"
+  (formSuccess)="formSuccess($event)"
+  (formError)="formError($event)"
 ></app-ingeit-dynamic-form>
