@@ -14,6 +14,7 @@ export class IngeitFormComponent implements OnInit {
   dataForFields: any = {};
 
   @Input() metaData: any;
+  @Input() theme: any;
   @Input() clearForm: boolean = false;
   @Input() submitText: string = 'Enviar';
   @Input() url: string;

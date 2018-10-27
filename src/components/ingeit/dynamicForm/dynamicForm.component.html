@@ -1,76 +1,95 @@
+<ion-item>
+  <ion-label position="floating">Floating Label</ion-label>
+  <ion-input clear-input value="clear me"></ion-input>
+</ion-item>
+
+
 <form [formGroup]="formGroup" style="padding:50px;" (ngSubmit)="submitForm()">
-  <div class="form-row" *ngFor="let rows of formViewBuilder">
-    <nz-form-item [ngClass]="setWidth(col)" *ngFor="let col of rows">
-      <nz-form-label [nzRequired]="col.required" nzFor="{{col.name}}">
-        <span>
-          {{col.name | titlecase}}
-          <nz-tooltip  *ngIf="col.tooltip" nzTitle="{{col.tooltip}}">
-            <i nz-tooltip class="anticon anticon-question-circle-o"></i>
-          </nz-tooltip>
-        </span>
-      </nz-form-label>
-      <nz-form-control [ngSwitch]="col.type">
+  <div *ngIf="theme === 'ant'">
+    <div class="form-row" *ngFor="let rows of formViewBuilder">
+      <nz-form-item [ngClass]="setWidth(col)" *ngFor="let col of rows">
+        <nz-form-label [nzRequired]="col.required" nzFor="{{col.name}}">
+          <span>
+            {{col.name | titlecase}}
+            <nz-tooltip *ngIf="col.tooltip" nzTitle="{{col.tooltip}}">
+              <i nz-tooltip class="anticon anticon-question-circle-o"></i>
+            </nz-tooltip>
+          </span>
+        </nz-form-label>
+        <nz-form-control [ngSwitch]="col.type">
 
-        <!-- input variable-->
-        <input 
-        type="{{col.type}}"
-        *ngSwitchCase="['input', 'email', 'password', 'autocomplete'].includes(col.type) ? col.type : ''"
-        nz-input 
-        (input)="col.type === 'autocomplete' && onInput($event.target?.value, col)"
-        [nzAutocomplete]="col.type === 'autocomplete' && auto"
-        formControlName="{{col.name}}" 
-        [required]="col.required" 
-        id="{{col.name}}"
-        placeholder="{{col.name | titlecase}}">
-        
-        <!-- For autocomplete field if type = 'autocomplete' -->
-        <nz-autocomplete nzBackfill #auto>
-        <nz-auto-option *ngFor="let option of dataForFields[col.name+'Search']" [nzValue]="option[col.dataFromServer.value]">
-          {{option[col.dataFromServer.value]}}
-        </nz-auto-option>
-        </nz-autocomplete>
+          <!-- input variable-->
+          <input type="{{col.type}}" *ngSwitchCase="['input', 'email', 'password', 'autocomplete'].includes(col.type) ? col.type : ''"
+            nz-input (input)="col.type === 'autocomplete' && onInput($event.target?.value, col)" [nzAutocomplete]="col.type === 'autocomplete' && auto"
+            formControlName="{{col.name}}" [required]="col.required" id="{{col.name}}" placeholder="{{col.name | titlecase}}">
 
-        <!-- date field -->
-        <nz-date-picker 
-          *ngSwitchCase="'date'"
-          formControlName="{{col.name}}">
-        </nz-date-picker>
+          <!-- For autocomplete field if type = 'autocomplete' -->
+          <nz-autocomplete nzBackfill #auto>
+            <nz-auto-option *ngFor="let option of dataForFields[col.name+'Search']" [nzValue]="option[col.dataFromServer.value]">
+              {{option[col.dataFromServer.value]}}
+            </nz-auto-option>
+          </nz-autocomplete>
 
-        <!-- range date -->
-        <nz-range-picker
-          *ngSwitchCase="'rangedate'"
-          formControlName="{{col.name}}">
-        </nz-range-picker>
+          <!-- date field -->
+          <nz-date-picker *ngSwitchCase="'date'" formControlName="{{col.name}}">
+          </nz-date-picker>
 
-        <!-- text area-->
-        <textarea 
-          *ngSwitchCase="'textarea'"
-          formControlName="{{col.name}}" 
-          nz-input 
-          placeholder="{{col.name | titlecase}}">
+          <!-- range date -->
+          <nz-range-picker *ngSwitchCase="'rangedate'" formControlName="{{col.name}}">
+          </nz-range-picker>
+
+          <!-- text area-->
+          <textarea *ngSwitchCase="'textarea'" formControlName="{{col.name}}" nz-input placeholder="{{col.name | titlecase}}">
         </textarea>
 
-        <!-- select field -->
-        <nz-select 
-          *ngSwitchCase="'select'"
-          formControlName="{{col.name}}" 
-          nzPlaceHolder="{{col.name | titlecase}}"
-          nzAllowClear>
-          <nz-option *ngFor="let o of dataForFields[col.name]" nzValue="{{o[col.dataFromServer.key]}}" nzLabel="{{o[col.dataFromServer.value]}}"></nz-option>
-        </nz-select>
+          <!-- select field -->
+          <nz-select *ngSwitchCase="'select'" formControlName="{{col.name}}" nzPlaceHolder="{{col.name | titlecase}}"
+            nzAllowClear>
+            <nz-option *ngFor="let o of dataForFields[col.name]" nzValue="{{o[col.dataFromServer.key]}}" nzLabel="{{o[col.dataFromServer.value]}}"></nz-option>
+          </nz-select>
 
-        <!-- error message-->
-        <nz-form-explain *ngIf="isValid(col.name)">{{col.name | titlecase}} es un campo requerido</nz-form-explain>
-      
-      </nz-form-control>
-    </nz-form-item>
-  </div>
+          <!-- error message-->
+          <nz-form-explain *ngIf="isValid(col.name)">{{col.name | titlecase}} es un campo requerido</nz-form-explain>
 
-  <div nz-row>
-    <div nz-col [nzSpan]="24" style="text-align: right;padding: 20px 10px;">
-      <button nz-button (click)="resetForm()" *ngIf="clearForm" style="margin-right: 5px;">Limpiar</button>
-      <button nz-button [nzType]="'primary'">{{submitText}}</button>
+        </nz-form-control>
+      </nz-form-item>
     </div>
   </div>
 
-</form> 
+  <div *ngIf="theme === 'ant'">
+    <div nz-row>
+      <div nz-col [nzSpan]="24" style="text-align: right;padding: 20px 10px;">
+        <button nz-button (click)="resetForm()" *ngIf="clearForm" style="margin-right: 5px;">Limpiar</button>
+        <button nz-button [nzType]="'primary'">{{submitText}}</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="theme === 'ionic'">
+    <div class="form-row" *ngFor="let rows of formViewBuilder">
+      <ion-item [ngClass]="setWidth(col)" *ngFor="let col of rows">
+        <ion-label
+          position="floating">
+          {{col.name | titlecase}}
+        </ion-label>
+        <ion-input 
+          type="{{col.type}}" 
+          clear-input 
+          formControlName="{{col.name}}" 
+          [required]="col.required" 
+          id="{{col.name}}">
+        </ion-input>
+      </ion-item>
+    </div>
+  </div>
+
+  <div *ngIf="theme === 'ionic'">
+    <div nz-row>
+      <div nz-col [nzSpan]="24" style="text-align: right;padding: 20px 10px;">
+        <button nz-button (click)="resetForm()" *ngIf="clearForm" style="margin-right: 5px;">Limpiar</button>
+        <button nz-button [nzType]="'primary'">{{submitText}}</button>
+      </div>
+    </div>
+  </div>
+
+</form>
