@@ -8,6 +8,7 @@ import { IngeitFormComponent } from '../components/ingeit/dynamicForm/dynamicFor
 })
 export class AppComponent {
   title = 'app';
+  antForms: any;
   forms: any;
 
   // name,
@@ -33,6 +34,18 @@ export class AppComponent {
 
   constructor() {
     this.forms = [
+      [{
+        name: 'email',
+        type: 'email',
+        required: true,
+      }, {
+        name: 'userId',
+        type: 'password',
+        required: true
+      }]
+    ];
+
+    this.antForms = [
       [{
         name: 'email',
         type: 'email',

@@ -1,9 +1,3 @@
-<ion-item>
-  <ion-label position="floating">Floating Label</ion-label>
-  <ion-input clear-input value="clear me"></ion-input>
-</ion-item>
-
-
 <form [formGroup]="formGroup" style="padding:50px;" (ngSubmit)="submitForm()">
   <div *ngIf="theme === 'ant'">
     <div class="form-row" *ngFor="let rows of formViewBuilder">
@@ -74,12 +68,13 @@
         </ion-label>
         <ion-input 
           type="{{col.type}}" 
-          clear-input 
+          clearInput 
           formControlName="{{col.name}}" 
           [required]="col.required" 
           id="{{col.name}}">
         </ion-input>
       </ion-item>
+      <ion-button shape="round" color="primary" fill="outline">Hello World</ion-button>
     </div>
   </div>
 
